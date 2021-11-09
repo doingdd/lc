@@ -1,0 +1,16 @@
+#!/usr/bin/python
+def max_profit(nums):
+    min_price = nums[0]
+    max_p = 0
+    for i in nums[1:]:
+        max_p = max(i-min_price,max_p)
+        min_price = min(i,min_price)
+
+    return max_p
+
+
+case = [[7,1,5,3,6,4],
+        [7,6,4,3,1]
+        ]
+for i in case:
+    print i,max_profit(i)

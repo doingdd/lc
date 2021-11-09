@@ -1,0 +1,26 @@
+#!/usr/bin/python
+
+def p(s):
+    s_list = []
+    for i in range(len(s)):
+        start,end = extension(s,i,i)
+        s_list.append(s[start:end+1])
+        start,end = extension(s,i,i+1)
+        s_list.append(s[start:end+1])
+
+    return max(s_list,key=len) if s_list else ''
+
+def extension(s,i,j):
+    while i >= 0 and j < len(s) and s[i] == s[j]:
+        i -= 1
+        j += 1
+
+    return i+1,j-1
+
+
+case = ['a','','aa','abc','abb','bacdc','ababa','cbabcbd']
+for i in case:
+    print i,p(i)
+
+ 
+    

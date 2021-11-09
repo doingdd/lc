@@ -1,0 +1,19 @@
+#!/usr/bin/python
+def sub_str(s):
+    if len(s) < 2:
+        return s
+    i = 0
+    j = 1
+    result_list = []
+    while j <= len(s):
+        if len(s[i:j]) == len(set(s[i:j])):
+            result_list.append(s[i:j])
+            j += 1
+        else:
+            i += 1
+
+    return max(result_list,key=len)
+
+case = ["paweww","ab","abcd","",'c',"aaa","aa","abcab",'abb']
+for i in case:
+    print i,sub_str(i)
