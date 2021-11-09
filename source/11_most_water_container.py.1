@@ -1,0 +1,30 @@
+#!/usr/bin/python
+
+def container(arr):
+    i = 0
+    j = len(arr) - 1
+    max_contain = 0
+    while i < j:
+        if arr[i] < arr[j]:
+            contain = arr[i] * (j-i)
+            i += 1
+        else:
+            contain = arr[j] * (j-i)
+            j -= 1
+
+        max_contain = max(contain,max_contain)
+
+    return max_contain
+        
+case = [[1,8,6,2,5,4,8,3,7],
+[1,2],
+[1,1],
+[0,0],
+[0,3],
+[0,3,4,5,6,7],
+[7,8,6,5,4],
+[3,3,3,3,3]
+]
+
+for i in case:
+  print i,container(i)
