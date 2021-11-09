@@ -1,2 +1,2 @@
 # lc
-every day
+coding every day
