@@ -1,0 +1,92 @@
+#!/usr/bin/python
+class Node():
+    def __init__(self,key=None,val=None):
+        self.key = key
+        self.val = val
+        self.next = None
+        self.pre = None
+
+class ListNode(object):
+    def __init__(self):
+        self.head = None
+
+    def pprint(self):
+        if not self.head:
+            print "Empty"
+        
+        p = self.head
+        while p:
+            print p.key,p.val,
+            p = p.next
+
+        print ''
+
+
+class LRUCache(ListNode):
+    def __init__(self,cap):
+        super(LRUCache,self).__init__()
+        self.length = 0
+        self.cap = cap
+        self.cache = {}
+        self.head = Node()
+        self.tail = Node()
+        self.head.next = self.tail
+        self.tail.pre = self.head
+
+    def add_from_head(self,node):
+        self.head.next.pre = node
+        node.next = self.head.next
+        self.head.next = node
+        node.pre = self.head
+        return
+
+    def delete_node(self,node):
+        node.next.pre = node.pre
+        node.pre.next = node.next
+
+    def move_to_head(self,node):
+        self.delete_node(node)
+        self.add_from_head(node)
+        
+    def delete_tail(self):
+        node = self.tail.pre
+        self.delete_node(node)
+        self.cache.pop(node.key)
+
+    def get(self,key):
+        if not self.cache.get(key):
+            return -1
+
+        node = self.cache.get(key)
+        self.move_to_head(node)
+
+        return node.val
+   
+    def put(self,key,val):
+        old_node = self.cache.get(key)
+        if old_node:
+            node.val = val
+            self.move_to_head(node)
+        
+        else:
+            node = Node(key,val)
+            self.cache[key] = node
+            self.add_from_head(node)
+            self.length += 1
+            if self.length > self.cap:
+                self.delete_tail()
+             
+
+lru = LRUCache(2)
+lru.put(1,1)
+lru.put(2,2)
+print lru.get(1)
+#lru.pprint()
+lru.put(3,3)
+print lru.get(2)
+lru.put(4,4)
+print lru.get(1)
+print lru.get(3)
+print lru.get(4)
+
+

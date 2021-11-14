@@ -1,31 +1,17 @@
 #!/usr/bin/python
-
-class LNode():
+class Node():
     def __init__(self,val=None):
         self.val = val
         self.next = None
-        
-class LList():
+
+class ListNode():
     def __init__(self):
         self.head = None
 
-    def append(self,val):
-        node = LNode(val)
+    def pprint(self):
         if not self.head:
-            self.head = node
-            return
-
-        p = self.head
-        while p.next:
-            p = p.next
-
-        p.next = node
+            print "Empty"
         
-    def lprint(self):
-        if not self.head:
-            print "[]"
-            return
-
         p = self.head
         while p:
             print p.val,
@@ -33,28 +19,38 @@ class LList():
 
         print ''
 
-    def reverse(self,head):
-        pre = None
-        cur = self.head
-        while cur:
-            temp = cur.next
-            cur.next = pre
-            pre = cur
-            cur = temp
+    def construct(self,l):
+        if not l:
+            return
+        self.head = Node(l[0])
+        p = self.head
+        for i in l[1:]:
+            node = Node(i)
+            p.next = node
+            p = p.next
 
-        head = pre 
-    
-        return head 
+def reverse(l):
+    listnode = ListNode()
+    listnode.construct(l)
+    pre = None
+    cur = listnode.head
+    while cur:
+        temp = cur.next
+        cur.next = pre
+        pre = cur
+        cur = temp
+
+    listnode.head = pre
+    return listnode
 
 case = [[1,2,3,4,5],
-        [1,1,1]]
-
+       [1,2],
+       [1,2,3],
+       [],
+       [1],
+       [2,2],
+       [0,0,0]]
 for i in case:
-    my_list = LList()
-    for j in i:
-        my_list.append(j)
-
-    my_list.lprint()
-    my_list.head = my_list.reverse(my_list.head)
-    my_list.lprint()
-    break
+    print "case is ",i
+    print "result is ",
+    reverse(i).pprint()
