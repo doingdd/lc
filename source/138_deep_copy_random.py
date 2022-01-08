@@ -1,19 +1,23 @@
 #!/usr/bin/python
 class Node(object):
-    def __init__(self,val=None,random=None):
+    def __init__(self,val=None):
         self.val = val
-        self.random = random
-        sef.next = None
+        self.random = None
+        self.next = None
 
 
 def construct_list(l):
     if not l:
         return ''
 
-    head = Node(*l[0])
+    node_dict = {}
+    head = Node(l[0][0])
+    random = Node(l[0][1])
+    head.random = random
+
     p = head
     for i in l[1:]:
-        node = Node(*i)
+        node = Node(i)
         p.next = node
         p = p.next
 
@@ -22,12 +26,23 @@ def construct_list(l):
 def deepCopy(head):
     if not head:
         return head
+    p = head
+    while p:
+        p.next = p
+        p = p.next.next
+
+    new_head = p
 
     return new_head
 
 def transfer(head):
     if not head:
         return []
+
+    p = head
+    l = []
+    while p:
+        l.append([p.val,p.random.val])
 
     return l
 
@@ -41,6 +56,7 @@ case = [
 
 for i in case:
     head = construct_list(i)
-    new_head = deepCopy(head)
-    new_i = transfer(new_head)
-    assert i == new_i
+    print transfer(head)
+    #new_head = deepCopy(head)
+    #new_i = transfer(new_head)
+    #assert i == new_i

@@ -21,7 +21,8 @@ a = [("abc","abc"),
      ('aaa','a'),
      ('aaa','aaa'),
      ('abcdefedcba','bacdfecg'),
-     ('abc','edf')
+     ('abc','edf'),
+     ('leetcode','etco')
      ]
 
 for i in a:
