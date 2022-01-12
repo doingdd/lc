@@ -162,3 +162,38 @@ case is [[2, 3, 4], [5, 6, 7], [1], [2, 3]],result is [1, 2, 2, 3, 3, 4, 5, 6, 7
 这道题的解法，应该属于比较暴力的一种，因为find_min的方式是O(k)，再加上lists的从前往后的遍历O(n),其实时间复杂度是O(n*k),但是好处是空间复杂度比较低
 
 另：参考了标准答案之后，本题解还有进一步优化时间的方法：用堆来代替find_min，可以将时间复杂读优化到O(logk*n)
+
+
+
+## 答案2，最小堆
+
+使用最小堆来找到k个list里最小的元素，可以将时间复杂度降到O(kn*logk),而且写法也比较简单(当然复杂的堆构建和调整官方库已经做完了)
+
+```python
+   def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        import heapq
+        p = new_head = ListNode()
+        heap = [(v.val,i) for i,v in enumerate(lists) if v]
+        heapq.heapify(heap)
+        while heap:
+            v,i = heapq.heappop(heap)
+            node = ListNode(v)
+            lists[i] = lists[i].next
+            if lists[i]:
+                heapq.heappush(heap,(lists[i].val,i))
+            
+            p.next = node
+            p = p.next
+        
+        return new_head.next
+```
+
+这个解法注意的点有两个
+
+1. 最小堆里存放的不只是val，还有最小node在lists中的索引，这样可以实现迭代
+2. 初始值入栈后，循环判断heap是否为空，然后在循环里对heap进行pop和push的操作，注意，只有节点不为None才可以push，否则heap永远都不为空了
+
