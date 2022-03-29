@@ -30,7 +30,7 @@
 
 平衡二叉树的定义是左右子树深度相差不超过1，这里的核心，是如何在遍历的过程中，求得每个节点的左右子树的高度，并判断差值
 
-求左右子树的高度是offer 55.1题目的考查点，核心思路就是后序遍历的递归，当前节点的深度是其左右子树深度最大值+1，然后在每次遍历时计算深度差，如果大于1则直接返回False,如下写法，虽然比较丑陋，但是容易理解 
+求左右子树的高度是offer 55.1题目的考查点，核心思路就是**后序遍历**的递归，当前节点的深度是其左右子树深度最大值+1，然后在每次遍历时计算深度差，如果大于1则直接返回False,如下写法，虽然比较丑陋，但是容易理解 
 
 ```python
     def isBalanced(self, root):
@@ -58,6 +58,28 @@
             return False
         
         return True
+```
+
+参考其它解答后，得到了一个更简洁的代码实现，主要是用-1代替false的情况，就不用那么多if == False的判断了：
+
+```python
+def isBalanced(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        def height(root):
+            if not root:
+                return 0
+
+            left_height = height(root.left)
+            right_height = height(root.right)
+            if left_height < 0 or right_height < 0 or abs(left_height-right_height)>1:
+                return -1
+
+            return max(left_height,right_height) + 1
+
+        return height(root) >= 0
 ```
 
 

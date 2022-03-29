@@ -34,6 +34,26 @@ class Solution(object):
         return self.hasPathSum(root.left,targetSum-root.val) or self.hasPathSum(root.right,targetSum-root.val)
 ```
 
+二刷，有了另一个写法，核心还是targetSum-root.val，只不过应用了前序遍历的思路，就是在刚刚进入节点的时候将减法做了，然后将减后的target值传给left和right, 需要注意的是，这两种写法其实都有一个重要思路：就是左子树或者右子树只要有一个满足条件就可以，所以dfs(root.left) or dfs(root.right)这个“or"非常重要
+
+```python
+    def hasPathSum(self, root, targetSum):
+        """
+        :type root: TreeNode
+        :type targetSum: int
+        :rtype: bool
+        """
+        def dfs(root,target):
+            if not root:
+                return False
+            target -= root.val
+            if target == 0 and (not root.left) and (not root.right):
+                return True 
+            return dfs(root.left,target) or dfs(root.right,target)
+        
+        return dfs(root,targetSum)
+```
+
 
 
 ## 总结
