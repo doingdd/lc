@@ -1,0 +1,29 @@
+#!/usr/bin/python
+def max_len(s):
+    l = len(s)
+    if l < 2:
+        return l
+    max_l = 0
+    i,j = 0,0
+    count = set()
+    while j < l:
+        if s[j] not in count:
+            max_l = max(max_l,len(s[i:j+1]))
+            count.add(s[j])
+            j += 1
+        else:
+            count.remove(s[i])
+            i += 1
+
+    return max_l
+
+case = [
+        'abc',
+        'aaaaaaaa',
+        'a',
+        'paweww',
+        '',
+        ]
+
+for i in case:
+    print i,max_len(i)

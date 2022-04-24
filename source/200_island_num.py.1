@@ -1,0 +1,50 @@
+#!/usr/bin/python
+def island(grid):
+    if not grid:
+        return 0
+
+    num = 0
+    m,n = len(grid),len(grid[0])
+    def dfs(i,j):
+        if not 0<=i<m or not 0<=j<n:
+            return
+        if grid[i][j] != "1":
+            return
+        grid[i][j] = 2
+        dfs(i+1,j) 
+        dfs(i-1,j) 
+        dfs(i,j+1) 
+        dfs(i,j-1) 
+
+        return
+
+    for i in range(m):
+        for j in range(n):
+            if grid[i][j] == "1":
+                num += 1
+                dfs(i,j)
+
+    return num
+
+case = (
+        [
+            ["1","1","1","1","0"],
+            ["1","1","0","1","0"],
+            ["1","1","0","0","0"],
+            ["0","0","0","0","0"]
+        ],
+        [
+            ["1","1","0","0","0"],
+            ["1","1","0","0","0"],
+            ["0","0","1","0","0"],
+            ["0","0","0","1","1"]
+        ],
+        [
+            ["1","1","0","0","1"],
+            ["1","0","0","1","0"],
+            ["0","1","1","0","0"],
+        ],
+        []
+)
+for i in case:
+    print i,island(i)
