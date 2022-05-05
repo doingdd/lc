@@ -1,29 +1,19 @@
 #!/usr/bin/python
 def down(arr,p_idx):
-    l = len(arr)
-    c_idx = p_idx * 2 + 1
-    tmp = arr[p_idx]
-    if not 
-    while c_idx < l:
-        if c_idx+1 < l and arr[c_idx+1]<arr[c_idx]:
-            c_idx += 1
-        
-        if tmp <= arr[c_idx]:
-            break
+    pass
+import heapq
+def firstk(nums,k):
+    if not nums:
+        return None
+    heap = nums[:k]
+    heapq.heapify(heap)
+    print( heap)
+    for i in nums[k:]:
+        if i >= heap[0]:
+            heapq.heappop(heap)
+            heapq.heappush(heap,i)
 
-        arr[p_idx] = arr[c_idx]
-        p_idx = c_idx
-        c_idx = 2*c_idx + 1
-
-    arr[p_idx] = tmp
-
-def fisrtk(arr,k):
-    if k < 1 or k > len(arr):
-        return 
-
-    heap_k = []
-    for i in arr:
-        if heap and
+    return heap[0]
 
 case = [
        ([1,2,3,4,4],1),

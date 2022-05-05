@@ -1,0 +1,85 @@
+#!/usr/bin/python
+class Node():
+    def __init__(self,k=None,val=None):
+        self.k = k
+        self.val = val
+        self.next = None
+        self.pre = None
+
+class ListNode():
+    def __init__(self):
+        self.head = Node()
+
+    def pprint(self):
+        if not self.head:
+            print ''
+            return
+
+        p = self.head
+        while p:
+            print p.val,
+            p = p.next
+
+        print ''
+
+    
+class LRUCache(ListNode):
+    def __init__(self,cap=0):
+        self.cap = cap
+        self.head = Node()
+        self.tail = Node()
+        self.head.next = self.tail
+        self.tail.pre = self.head
+        self.cache = {}
+
+    def get(self,k):
+        if k in self.cache:
+            node = self.cache[k]
+            self.moveToHead(node)
+            return node.val
+        else:
+            return None
+
+    def put(self,k,v):
+        if k in self.cache:
+            print "Duplicate"
+
+        node = Node(k,v)
+        self.cache[k] = node
+        self.insertFirst(node)
+        if len(self.cache) > self.cap:
+            k = self.deleteTail()
+            self.cache.pop(k)
+
+    def moveToHead(self,node):
+        self.delete_node(node)
+        self.insertFirst(node)
+
+    def deleteTail(self):
+        node = self.tail.pre
+        self.delete_node(node)
+
+        return node.k
+
+    def delete_node(self,node):
+        node.next.pre = node.pre
+        node.pre.next = node.next
+        node.pre = node.next = None
+
+    def insertFirst(self,node):
+        self.head.next.pre = node
+        node.next = self.head.next
+        self.head.next = node
+        node.pre = self.head
+    
+lru = LRUCache(2)
+lru.put(1,1)
+lru.put(2,2)
+print lru.get(1)
+#lru.pprint()
+lru.put(3,3)
+print lru.get(2)
+lru.put(4,4)
+print lru.get(1)
+print lru.get(3)
+print lru.get(4)

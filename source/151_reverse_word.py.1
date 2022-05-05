@@ -1,0 +1,27 @@
+#!/usr/bin/python
+def reverse_word(s):
+    stack = []
+    word = ""
+    for i in s:
+        if i==' ':
+            if word:
+                stack.append(word)
+                word = ""
+        else:
+            word += i
+
+    if word:
+        stack.append(word)
+
+    print stack
+    return ' '.join(stack[::-1])
+
+
+case = [
+    "the sky is blue",
+    "  hello world ",
+    "a good    example"
+    ""
+]
+for i in case:
+  print i,reverse_word(i)

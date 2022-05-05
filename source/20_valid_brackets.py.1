@@ -1,0 +1,23 @@
+#!/usr/bin/python
+def valid(s):
+    pair = {
+           ")":"(",
+           "]":"[",
+           "}":"{"
+            }
+    stack = []
+    for i in s:
+        if i in pair:
+            if not stack or stack[-1] != pair[i]:
+                return False
+
+            stack.pop()
+        else:
+            stack.append(i)
+
+    return False if stack else True
+
+
+case = ["()",'()[]{}','(]','([)]','{[]}']
+for i in case:
+    print i,valid(i)
