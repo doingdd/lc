@@ -1,5 +1,6 @@
+#!/usr/bin/python
 case = [
-  4,8,3,0,10,9,81
+  1,4,8,3,0,10,9,81
 ]
 def sqr(x):
     l,r,ans = 0,x,-1
@@ -14,6 +15,5 @@ def sqr(x):
     return ans
 
 for i in case:
-    print(i)
-    print(sqr(i))
+    print i,sqr(i)
 
