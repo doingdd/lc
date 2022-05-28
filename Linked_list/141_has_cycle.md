@@ -49,6 +49,28 @@ class Solution(object):
         return False 
 ```
 
+补充一个带哨兵的写法,带上哨兵之后，初始值p和q分别等于pre和pre.next(head), 省去了判断head为空的情况
+
+```python
+class Solution(object):
+    def hasCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        pre = ListNode(None)
+        pre.next = head
+        p,q = pre,pre.next  
+        while q and q.next:
+            if p == q:
+                return True
+            
+            p = p.next
+            q = q.next.next 
+        
+        return False
+```
+
 
 
 ## 总结
